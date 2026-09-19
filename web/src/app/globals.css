@@ -1,0 +1,137 @@
+@import "tailwindcss";
+
+@theme {
+  /* Surfaces — deep forest black, grounding the page in earth. */
+  --color-paper: #0f1410;
+  --color-paper-soft: #1a2118;
+  --color-line: #2d3a2a;
+
+  /* Ink — warm cream to soft grey, readable on dark grounds. */
+  --color-ink: #e8e4dc;
+  --color-ink-soft: #a8a298;
+  --color-ink-faint: #6b6660;
+
+  /* Harvest gold accent — warm, premium, agricultural. */
+  --color-accent: #c8a84e;
+  --color-accent-soft: #1f1d14;
+
+  /* Secondary accent — vivid green for primary CTAs. */
+  --color-accent-cta: #3a8a4a;
+
+  --font-display: var(--font-anton), "Arial Narrow", sans-serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-instrument), Georgia, serif;
+
+  /* Display scale — clamped so the massive type never overflows a phone */
+  --text-mega: clamp(3rem, 13vw, 12rem);
+  --text-huge: clamp(2.5rem, 8vw, 6.5rem);
+  --text-eyebrow: clamp(0.65rem, 0.9vw, 0.78rem);
+  --text-stat: clamp(2rem, 5vw, 4rem);
+}
+
+html {
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  /* Lenis drives scrolling; native smooth behaviour would fight it. */
+  scroll-behavior: auto;
+}
+
+body {
+  background-color: var(--color-paper);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Lenis */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+::selection {
+  background: var(--color-accent);
+  color: var(--color-paper);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/**
+ * Legibility for chrome laid over photography.
+ *
+ * On a dark theme the text is already light; a soft dark outer glow keeps
+ * edges crisp against bright plant photography without dulling the shot.
+ */
+.on-photo {
+  text-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.7),
+    0 2px 16px rgba(0, 0, 0, 0.5);
+}
+
+.rule {
+  height: 1px;
+  background: var(--color-line);
+}
+
+/**
+ * Opaque content surface.
+ *
+ * Content sections sit on this rather than floating over the photography.
+ * Dark opaque ground gives every section a clean, high-contrast field.
+ */
+.surface {
+  background-color: var(--color-paper);
+  position: relative;
+  z-index: 1;
+}
+
+/**
+ * A surface that emerges from the frame behind it.
+ *
+ * The photograph bleeds through the top of the block and settles into the
+ * dark ground by the time the copy starts.
+ */
+.surface-blend {
+  position: relative;
+  z-index: 1;
+  background: linear-gradient(
+    to bottom,
+    rgba(15, 20, 16, 0) 0%,
+    rgba(15, 20, 16, 0.55) 12%,
+    rgba(15, 20, 16, 0.88) 30%,
+    rgba(15, 20, 16, 0.97) 55%,
+    var(--color-paper) 78%
+  );
+}
+
+/* Card: dark glass with gold shimmer. Deliberately no backdrop-filter. */
+.card {
+  background: linear-gradient(145deg, rgba(26, 33, 24, 0.95), rgba(15, 20, 16, 0.98));
+  border: 1px solid rgba(200, 168, 78, 0.15);
+  border-radius: 1.25rem;
+  box-shadow:
+    0 0 40px -20px rgba(200, 168, 78, 0.06),
+    0 1px 3px rgba(0, 0, 0, 0.4);
+  transition: border-color 0.4s, box-shadow 0.4s;
+}
+
+.card:hover {
+  border-color: rgba(200, 168, 78, 0.35);
+  box-shadow:
+    0 0 60px -20px rgba(200, 168, 78, 0.12),
+    0 4px 24px rgba(0, 0, 0, 0.5);
+}
